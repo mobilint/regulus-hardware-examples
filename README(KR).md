@@ -43,7 +43,7 @@ SDK는 [Mobilint 다운로드 센터](https://dl.mobilint.com/)에서 받을 수
 | MAPI | 이미지 크기와 RGB/YUV 픽셀 형식을 변환합니다. | [예제](regulus-ra/mapi/README(KR).md) | [예제](regulus-rb/mapi/README(KR).md) |
 | CODAJ | JPEG 이미지를 압축하거나 압축 해제합니다. | [예제](regulus-ra/codaj/README(KR).md) | [예제](regulus-rb/codaj/README(KR).md) |
 | DMA350 | 메모리를 복사하고 이미지를 자르거나 회전·반전합니다. | - | [예제](regulus-rb/dma350/README(KR).md) |
-| ISP | MIPI 카메라의 RAW 영상을 처리하고 캡처합니다. | [예제](regulus-ra/isp/README(KR).md) | [예제](regulus-rb/isp/README(KR).md) |
+| ISP | MIPI 카메라의 RAW 센서 데이터를 처리하고 결과 영상을 캡처합니다. | [예제](regulus-ra/isp/README(KR).md) | [예제](regulus-rb/isp/README(KR).md) |
 | Wave5 | H.264/H.265 영상을 압축하거나 압축 해제합니다. | [예제](regulus-ra/wave5/README(KR).md) | [예제](regulus-rb/wave5/README(KR).md) |
 | SP500 | 영상 및 신호 처리 연산을 실행하는 Vision DSP입니다. | - | [예제](regulus-rb/sp500/README(KR).md) |
 
@@ -64,7 +64,7 @@ SDK는 [Mobilint 다운로드 센터](https://dl.mobilint.com/)에서 받을 수
 ## 저장소 구조
 
 ```text
-regulus-hardware-examples-gitlab/
+regulus-hardware-examples/
 ├── assets/             # 문서에 사용되는 이미지
 ├── regulus-ra/         # Regulus-RA 하드웨어 예제
 │   ├── codaj/          # JPEG 압축 및 압축 해제

@@ -11,7 +11,7 @@ Regulus-RB의 이미지, 동영상 및 데이터 처리 하드웨어를 사용�
 | [MAPI](mapi/README(KR).md) | 이미지 크기와 RGB/YUV 픽셀 형식을 변환합니다. |
 | [CODAJ](codaj/README(KR).md) | JPEG 이미지를 압축하거나 압축 해제합니다. |
 | [DMA350](dma350/README(KR).md) | 메모리를 복사하고 이미지를 자르거나 회전·반전합니다. |
-| [ISP](isp/README(KR).md) | MIPI 카메라의 RAW 영상을 처리하고 캡처합니다. |
+| [ISP](isp/README(KR).md) | MIPI 카메라의 RAW 센서 데이터를 처리하고 결과 영상을 캡처합니다. |
 | [SP500](sp500/README(KR).md) | 영상 및 신호 처리 연산을 실행하는 Vision DSP입니다. |
 | [Wave5](wave5/README(KR).md) | H.264/H.265 영상을 압축하거나 압축 해제합니다. |
 
@@ -34,9 +34,12 @@ make clean
 make TOOLCHAIN_ROOT=/opt/crosstools/mobilint/2.0.0/vX.Y.Z
 ```
 
-## 하드웨어 확인
+## V4L2 장치 확인
 
-보드에 연결된 V4L2 하드웨어는 다음 명령으로 확인할 수 있습니다.
+이 확인 방법은 MAPI, CODAJ, DMA350, ISP 및 Wave5에 적용됩니다.
+DSP 펌웨어 절차는 SP500 예제를 참조하십시오.
+
+보드의 V4L2 장치는 다음 명령으로 확인합니다.
 
 ```bash
 v4l2-ctl --list-devices

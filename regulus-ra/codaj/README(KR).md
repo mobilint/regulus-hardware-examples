@@ -69,6 +69,8 @@ make TOOLCHAIN_ROOT=/opt/crosstools/mobilint/1.0.0/vX.Y.Z
 
 ## 보드로 전송
 
+개발 PC의 저장소 최상위 디렉터리에서 다음 명령을 실행합니다.
+
 ```bash
 cd regulus-ra
 scp -r codaj root@<BOARD_IP>:/root/
@@ -110,6 +112,9 @@ file outputs/test-sample2.jpeg
 
 ## 결과를 개발 PC로 가져오기
 
+개발 PC의 저장소 최상위 디렉터리에서 다음 명령을 실행합니다.
+
 ```bash
-scp -r root@<BOARD_IP>:/root/codaj/outputs regulus-ra/codaj/
+cd regulus-ra
+scp -r root@<BOARD_IP>:/root/codaj/outputs codaj/
 ```

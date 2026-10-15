@@ -6,7 +6,7 @@ Regulus-RB의 MAPI 하드웨어를 사용하여 이미지의 크기와 픽셀 �
 
 ## MAPI란 무엇인가요?
 
-MAPI는 압축이 풀린 이미지의 픽셀 데이터를 변환하는 하드웨어입니다.
+MAPI는 비압축 픽셀 데이터를 변환하는 하드웨어입니다.
 CPU 대신 MAPI를 사용하면 이미지 크기 변경과 RGB/YUV 변환을 하드웨어로 처리할 수 있습니다.
 
 MAPI 드라이버가 제공하는 주요 기능은 다음과 같습니다.
@@ -19,7 +19,8 @@ MAPI 드라이버가 제공하는 주요 기능은 다음과 같습니다.
 - 사용자 CSC 계수와 luma/chroma phase 설정
 
 PNG와 JPEG는 압축된 이미지 파일입니다.
-MAPI는 이러한 파일을 직접 읽거나 저장하지 않으며, 압축이 풀린 RGB24, NV12, YUYV 등의 uncompressed pixel data를 처리합니다.
+MAPI는 이러한 파일을 직접 읽거나 저장하지 않습니다.
+MAPI는 RGB24, NV12 및 YUYV 등의 비압축 픽셀 데이터를 처리합니다.
 이 예제에서는 GStreamer가 PNG 압축 해제와 압축을 담당합니다.
 
 ## 예제
@@ -30,11 +31,11 @@ MAPI는 이러한 파일을 직접 읽거나 저장하지 않으며, 압축이 �
 
 ```text
 test-sample.png
-    -> GStreamer PNG decoder
+    -> GStreamer PNG 디코더
     -> RGB 640x640
     -> MAPI scaler
     -> RGB 1024x1024
-    -> GStreamer PNG encoder
+    -> GStreamer PNG 인코더
     -> outputs/result_mapi_scale.png
 ```
 
@@ -42,7 +43,7 @@ MAPI 스케일 필터는 Cubic sharpness 1.0을 사용합니다.
 
 ### `mapi_csc`
 
-640x640 NV12 형식의 uncompressed pixel data를 읽어 MAPI에서 RGB로 변환하고 PNG로 저장합니다.
+640x640 NV12 형식의 비압축 픽셀 데이터를 읽어 MAPI에서 RGB로 변환하고 PNG로 저장합니다.
 
 ```text
 test-sample2.nv12
@@ -50,13 +51,13 @@ test-sample2.nv12
     -> NV12 640x640
     -> MAPI CSC
     -> RGB 640x640
-    -> GStreamer PNG encoder
+    -> GStreamer PNG 인코더
     -> outputs/result_mapi_csc.png
 ```
 
 NV12 파일에는 해상도와 픽셀 형식 정보가 포함되어 있지 않습니다.
 따라서 이 예제는 입력을 640x640 NV12로 가정합니다.
-해당 uncompressed pixel data의 크기는 다음과 같습니다.
+이 비압축 픽셀 데이터의 크기는 다음과 같습니다.
 
 ```text
 640 x 640 x 1.5 = 614400 bytes
@@ -180,7 +181,11 @@ MAPI가 `/dev/video0`으로 확인되었다면 다음과 같이 실행합니다.
 ./mapi_csc test-sample2.nv12 /dev/video0
 ```
 
-프로그램은 `/dev/videoN`에서 `v4l2videoNconvert` GStreamer 요소 이름을 만들어 해당 MAPI 장치를 사용합니다.
+프로그램은 지정한 `/dev/videoN` 노드에 연결된 V4L2 변환 요소를 선택합니다.
+먼저 장치별 변환 요소를 확인합니다.
+노드가 일반 `v4l2convert` 요소를 사용하면 프로그램은 요소의 `device` 속성을 확인합니다.
+프로그램은 선택한 노드가 MAPI 장치인지는 확인하지 않습니다.
+항상 `v4l2-ctl --list-devices` 출력에서 `C&M MAPI` 아래에 있는 노드를 사용하십시오.
 
 생성된 결과를 확인합니다.
 

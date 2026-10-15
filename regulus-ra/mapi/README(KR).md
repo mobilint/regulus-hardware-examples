@@ -6,7 +6,7 @@ Regulus-RA의 MAPI 하드웨어를 사용하여 이미지 크기와 픽셀 형�
 
 ## MAPI란 무엇인가요?
 
-MAPI는 압축이 풀린 이미지의 픽셀 데이터를 변환하는 하드웨어입니다.
+MAPI는 비압축 픽셀 데이터를 변환하는 하드웨어입니다.
 
 CPU 대신 MAPI를 사용하면 이미지 크기 변경과 RGB/YUV 변환을 하드웨어로 처리할 수 있습니다.
 
@@ -20,11 +20,11 @@ PNG 압축 해제와 결과 PNG 압축은 GStreamer가 처리합니다.
 
 ```text
 test-sample.png
-    -> GStreamer PNG decoder
+    -> GStreamer PNG 디코더
     -> RGB 640x640
     -> MAPI scaler
     -> RGB 1024x1024
-    -> GStreamer PNG encoder
+    -> GStreamer PNG 인코더
     -> outputs/result_mapi_scale.png
 ```
 
@@ -38,7 +38,7 @@ test-sample2.nv12
     -> NV12 640x640
     -> MAPI CSC
     -> RGB 640x640
-    -> GStreamer PNG encoder
+    -> GStreamer PNG 인코더
     -> outputs/result_mapi_csc.png
 ```
 

@@ -47,8 +47,10 @@ make TOOLCHAIN_ROOT=/opt/crosstools/mobilint/2.0.0/vX.Y.Z
 ## 보드로 전송
 
 `<BOARD_IP>`를 보드 IP 주소로 바꾸십시오.
+개발 PC의 저장소 최상위 디렉터리에서 다음 명령을 실행합니다.
 
 ```bash
+cd regulus-rb/sp500
 ssh root@<BOARD_IP> 'mkdir -p /root/sp500'
 scp sp500_letterbox test-sample-1080p.png root@<BOARD_IP>:/root/sp500/
 ```

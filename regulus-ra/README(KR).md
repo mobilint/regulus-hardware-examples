@@ -10,7 +10,7 @@ Regulus-RA의 이미지 및 동영상 처리 하드웨어를 사용하는 C++ �
 | --- | --- |
 | [MAPI](mapi/README(KR).md) | 이미지 크기와 RGB/YUV 픽셀 형식을 변환합니다. |
 | [CODAJ](codaj/README(KR).md) | JPEG 이미지를 압축하거나 압축 해제합니다. |
-| [ISP](isp/README(KR).md) | MIPI 카메라의 RAW 영상을 처리하고 캡처합니다. |
+| [ISP](isp/README(KR).md) | MIPI 카메라의 RAW 센서 데이터를 처리하고 결과 영상을 캡처합니다. |
 | [Wave5](wave5/README(KR).md) | H.264/H.265 영상을 압축하거나 압축 해제합니다. |
 
 각 예제의 빌드 및 실행 방법은 해당 디렉터리의 `README(KR).md`에서 확인할 수 있습니다.

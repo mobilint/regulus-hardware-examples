@@ -11,16 +11,44 @@ namespace {
 constexpr int kPipelineTimeoutSeconds = 30;
 constexpr char kVideoPrefix[] = "/dev/video";
 
-bool MakeConverterName(const char* path, std::string& name) {
+bool FindV4l2ConverterForDevice(const char* path, std::string& converter_name) {
     const std::string device = path;
     const std::size_t prefix_length = sizeof(kVideoPrefix) - 1;
+
     if (device.compare(0, prefix_length, kVideoPrefix) != 0 ||
         device.size() == prefix_length ||
         !std::all_of(device.begin() + prefix_length, device.end(),
                      [](unsigned char c) { return std::isdigit(c) != 0; })) {
         return false;
     }
-    name = "v4l2video" + device.substr(prefix_length) + "convert";
+
+    // GStreamer gives additional V4L2 converters a device-specific name.
+    const std::string device_converter =
+        "v4l2video" + device.substr(prefix_length) + "convert";
+    GstElementFactory* factory = gst_element_factory_find(device_converter.c_str());
+    if (factory != nullptr) {
+        gst_object_unref(factory);
+        converter_name = device_converter;
+        return true;
+    }
+
+    // The first V4L2 converter keeps the generic v4l2convert name.
+    GstElement* default_converter = gst_element_factory_make("v4l2convert", nullptr);
+    if (default_converter == nullptr) {
+        return false;
+    }
+
+    gchar* default_device = nullptr;
+    g_object_get(default_converter, "device", &default_device, nullptr);
+    const bool is_default_device = default_device != nullptr && device == default_device;
+    g_free(default_device);
+    gst_object_unref(default_converter);
+
+    if (!is_default_device) {
+        return false;
+    }
+
+    converter_name = "v4l2convert";
     return true;
 }
 }  // namespace
@@ -31,14 +59,15 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    gst_init(nullptr, nullptr);
+
     std::string converter_name;
-    if (!MakeConverterName(argv[2], converter_name)) {
-        std::cerr << "Invalid video device: " << argv[2]
-                  << ". Use /dev/video followed by one or more digits.\n";
+    if (!FindV4l2ConverterForDevice(argv[2], converter_name)) {
+        std::cerr << "V4L2 converter not found for " << argv[2]
+                  << ". Use a /dev/videoN node that provides a V4L2 converter.\n";
         return 1;
     }
 
-    gst_init(nullptr, nullptr);
     std::error_code directory_error;
     std::filesystem::create_directories("outputs", directory_error);
     if (directory_error) {

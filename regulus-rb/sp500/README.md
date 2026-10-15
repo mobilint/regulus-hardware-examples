@@ -47,8 +47,10 @@ The build creates the ARM64 executable `sp500_letterbox`.
 ## Transfer to the Board
 
 Replace `<BOARD_IP>` with the board IP address.
+Run these commands from the repository root directory on the development PC.
 
 ```bash
+cd regulus-rb/sp500
 ssh root@<BOARD_IP> 'mkdir -p /root/sp500'
 scp sp500_letterbox test-sample-1080p.png root@<BOARD_IP>:/root/sp500/
 ```

@@ -11,7 +11,7 @@ These C++ examples use the image, video, and data processing hardware in Regulus
 | [MAPI](mapi/) | Changes the image size and converts RGB/YUV pixel formats. |
 | [CODAJ](codaj/) | Encodes or decodes JPEG images. |
 | [DMA350](dma350/) | Copies memory and crops, rotates, or mirrors images. |
-| [ISP](isp/) | Processes and captures RAW images from a MIPI camera. |
+| [ISP](isp/) | Processes RAW sensor data from a MIPI camera and captures the processed images. |
 | [SP500](sp500/) | Runs image and signal processing operations on a Vision DSP. |
 | [Wave5](wave5/) | Encodes or decodes H.264/H.265 video. |
 
@@ -34,9 +34,12 @@ make clean
 make TOOLCHAIN_ROOT=/opt/crosstools/mobilint/2.0.0/vX.Y.Z
 ```
 
-## Hardware Check
+## V4L2 Device Check
 
-Use this command to show the V4L2 hardware on the board:
+This check applies to MAPI, CODAJ, DMA350, ISP, and Wave5.
+Refer to the SP500 example for the DSP firmware procedure.
+
+Use this command to show the V4L2 devices on the board:
 
 ```bash
 v4l2-ctl --list-devices

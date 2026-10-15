@@ -2,8 +2,8 @@
 
 [Korean](README(KR).md)
 
-This example processes images from a MIPI camera in the ISP. It saves five PNG images.
-It does not use a stored test video.
+This example uses the ISP to process images from an IMX678 MIPI camera connected to CSI2-R0.
+The program saves five processed images as PNG files.
 
 ## What Is an ISP?
 
@@ -89,8 +89,8 @@ BTree ISP (platform:regulus-isp):
     /dev/mediaN
 ```
 
-The video node number can be different for each board configuration.
-Replace `/dev/videoN` in the commands below with the ISP node from this output.
+The video node number and the media node number can be different for each board configuration.
+Replace `/dev/videoN` and `/dev/mediaN` in the commands below with the ISP nodes from this output.
 
 Show the media graph.
 

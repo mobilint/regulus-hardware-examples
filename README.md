@@ -43,7 +43,7 @@ The available hardware and cross toolchain are different for each board. Use the
 | MAPI | Changes the image size and converts RGB/YUV pixel formats. | [Example](regulus-ra/mapi/) | [Example](regulus-rb/mapi/) |
 | CODAJ | Encodes or decodes JPEG images. | [Example](regulus-ra/codaj/) | [Example](regulus-rb/codaj/) |
 | DMA350 | Copies memory and crops, rotates, or mirrors images. | - | [Example](regulus-rb/dma350/) |
-| ISP | Processes and captures RAW images from a MIPI camera. | [Example](regulus-ra/isp/) | [Example](regulus-rb/isp/) |
+| ISP | Processes RAW sensor data from a MIPI camera and captures the processed images. | [Example](regulus-ra/isp/) | [Example](regulus-rb/isp/) |
 | Wave5 | Encodes or decodes H.264/H.265 video. | [Example](regulus-ra/wave5/) | [Example](regulus-rb/wave5/) |
 | SP500 | Runs image and signal processing operations on a Vision DSP. | - | [Example](regulus-rb/sp500/) |
 
@@ -64,7 +64,7 @@ Refer to the `README.md` in each example directory for detailed commands.
 ## Repository Structure
 
 ```text
-regulus-hardware-examples-gitlab/
+regulus-hardware-examples/
 ├── assets/             # Images for the documentation
 ├── regulus-ra/         # Regulus-RA hardware examples
 │   ├── codaj/          # JPEG encoding and decoding

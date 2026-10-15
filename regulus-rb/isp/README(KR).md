@@ -2,8 +2,8 @@
 
 [English](README.md)
 
-이 예제는 MIPI 카메라 영상을 ISP로 처리하고 PNG 이미지 5장으로 저장합니다.
-저장된 테스트 영상은 사용하지 않습니다.
+이 예제는 CSI2-R0에 연결된 IMX678 MIPI 카메라의 영상을 ISP로 처리합니다.
+프로그램은 처리 결과를 PNG 이미지 5장으로 저장합니다.
 
 ## ISP란 무엇인가요?
 
@@ -19,15 +19,15 @@ ISP에는 다음과 같은 기능이 있습니다.
 - Bayer RAW demosaic
 - Black level 보정
 - 색 보정과 YUV 출력 변환
-- Crop과 image subsampling
+- 자르기(crop)와 영상 서브샘플링(image subsampling)
 - 수평 및 수직 반전
 
 이 예제는 AE와 AWB를 직접 설정하지 않습니다.
 
-Crop은 입력 영상에서 지정한 사각형 영역만 선택합니다.
+자르기는 입력 영상에서 지정한 사각형 영역만 선택합니다.
 `center-crop` 모드는 1920x1080 영상의 중앙에서 512x512 영역을 선택합니다.
 
-Image subsampling은 전체 영상의 공간 해상도를 줄입니다.
+영상 서브샘플링은 전체 영상의 공간 해상도를 줄입니다.
 이 기능은 YUV 4:2:0과 같은 chroma subsampling과 다릅니다.
 `subsample-half` 모드는 가로와 세로의 샘플 수를 각각 1/2로 줄입니다.
 따라서 출력 크기는 960x540입니다.
@@ -38,14 +38,14 @@ Image subsampling은 전체 영상의 공간 해상도를 줄입니다.
 ## 데이터 흐름
 
 ```text
-IMX678 MIPI camera
+IMX678 MIPI 카메라
     -> CSI2-R0
     -> Bayer RAW, SRGGB12
     -> BTree ISP
-    -> ISP crop, subsampling, or flip
+    -> ISP 자르기, 영상 서브샘플링 또는 반전
     -> YUY2, 30 fps
-    -> GStreamer PNG encoder
-    -> five PNG images
+    -> GStreamer PNG 인코더
+    -> PNG 이미지 5장
 ```
 
 ISP는 RAW 입력부터 YUY2 출력까지 처리합니다.
@@ -89,10 +89,10 @@ BTree ISP (platform:regulus-isp):
     /dev/mediaN
 ```
 
-비디오 노드 번호는 보드 구성에 따라 달라질 수 있습니다.
-아래 명령의 `/dev/videoN`을 실제 ISP 노드로 바꾸십시오.
+비디오 노드 번호와 미디어 노드 번호는 보드 구성에 따라 달라질 수 있습니다.
+아래 명령의 `/dev/videoN`과 `/dev/mediaN`을 실제 ISP 노드로 바꾸십시오.
 
-Media graph를 확인합니다.
+미디어 그래프를 확인합니다.
 
 ```bash
 media-ctl -d /dev/mediaN -p
@@ -148,13 +148,13 @@ cd /root/isp
 ./isp_capture /dev/videoN
 ```
 
-1/2 image subsampling을 적용합니다.
+1/2 영상 서브샘플링을 적용합니다.
 
 ```bash
 ./isp_capture /dev/videoN subsample-half
 ```
 
-1920x1080 영상의 중앙을 512x512 크기로 crop합니다.
+1920x1080 영상의 중앙을 512x512 크기로 자릅니다.
 
 ```bash
 ./isp_capture /dev/videoN center-crop

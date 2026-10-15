@@ -7,20 +7,20 @@ Regulus-RB의 DMA350 하드웨어를 사용하여 이미지 데이터를 복사�
 ## DMA350이란 무엇인가요?
 
 DMA350은 CPU 대신 메모리 데이터를 이동하는 하드웨어입니다.
-이미지에서는 픽셀 데이터를 복사하면서 읽고 쓰는 순서를 조절하여 반전, 회전, Crop을 수행할 수 있습니다.
+이미지에서는 픽셀 데이터를 복사하면서 읽고 쓰는 순서를 조절하여 반전, 회전 및 자르기(crop)를 수행할 수 있습니다.
 
-Regulus-RB DMA350 드라이버가 제공하는 mode는 다음과 같습니다.
+Regulus-RB DMA350 드라이버가 제공하는 모드는 다음과 같습니다.
 
-| mode | 기능 |
+| 모드 | 기능 |
 | ---: | --- |
 | 0 | 1D copy |
 | 1 | 2D copy |
 | 2 | Mirror |
 | 3 | Rotation |
-| 4 | Crop |
+| 4 | 자르기 |
 
 PNG는 압축된 이미지 파일입니다.
-DMA350은 PNG 파일을 직접 처리하지 않고, 압축이 풀린 RGB 픽셀 데이터를 처리합니다.
+DMA350은 PNG 파일을 직접 처리하지 않고 비압축 RGB 픽셀 데이터를 처리합니다.
 이 예제에서는 GStreamer가 PNG 압축 해제와 압축을 담당합니다. 선택한 V4L2 변환 요소가 DMA350 하드웨어를 사용합니다.
 
 ## 예제
@@ -32,16 +32,16 @@ DMA350은 PNG 파일을 직접 처리하지 않고, 압축이 풀린 RGB 픽셀 
 
 ```text
 test-sample.png
-    -> GStreamer PNG decoder
+    -> GStreamer PNG 디코더
     -> RGB 640x640
     -> DMA350 1D copy 또는 2D copy
     -> RGB 640x640
-    -> GStreamer PNG encoder
+    -> GStreamer PNG 인코더
 ```
 
 1D copy는 `640 x 640 x 3 = 1228800`바이트를 하나의 연속된 데이터로 복사합니다.
 2D copy는 한 행의 1920바이트를 640번 복사합니다.
-두 결과 이미지는 원본과 동일하지만 DMA350에 설정되는 mode가 다릅니다.
+두 결과 이미지는 원본과 동일하지만 DMA350에 설정되는 모드가 다릅니다.
 
 결과 파일은 다음과 같습니다.
 
@@ -81,7 +81,7 @@ test-sample.png
 ```text
 test-sample.png
     -> RGB 640x640
-    -> DMA350 center crop
+    -> DMA350 중앙 영역 자르기
     -> RGB 320x320
     -> outputs/result_dma350_crop.png
 ```
@@ -199,7 +199,7 @@ cd /root/dma350
 ./dma350_copy test-sample.png /dev/videoN 2d
 ```
 
-Mirror, Rotation, Crop 예제를 실행합니다.
+반전, 회전 및 자르기 예제를 실행합니다.
 
 ```bash
 ./dma350_mirror test-sample.png /dev/videoN
@@ -221,7 +221,7 @@ file outputs/*.png
 | `result_dma350_copy_2d.png` | 640x640 | 2D copy |
 | `result_dma350_mirror.png` | 640x640 | 좌우 반전 |
 | `result_dma350_rotation.png` | 640x640 | 시계 방향 90도 회전 |
-| `result_dma350_crop.png` | 320x320 | 중앙 영역 Crop |
+| `result_dma350_crop.png` | 320x320 | 중앙 영역 자르기 |
 
 ## 결과를 개발 PC로 가져오기
 

@@ -10,7 +10,7 @@ These C++ examples use the image and video processing hardware in Regulus-RA.
 | --- | --- |
 | [MAPI](mapi/) | Changes the image size and converts RGB/YUV pixel formats. |
 | [CODAJ](codaj/) | Encodes or decodes JPEG images. |
-| [ISP](isp/) | Processes and captures RAW images from a MIPI camera. |
+| [ISP](isp/) | Processes RAW sensor data from a MIPI camera and captures the processed images. |
 | [Wave5](wave5/) | Encodes or decodes H.264/H.265 video. |
 
 Refer to the `README.md` in each directory for build and run instructions.

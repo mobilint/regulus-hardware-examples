@@ -180,7 +180,11 @@ If MAPI is `/dev/video0`, use these commands:
 ./mapi_csc test-sample2.nv12 /dev/video0
 ```
 
-The program uses `/dev/videoN` to make the `v4l2videoNconvert` GStreamer element name. It uses this element to select the MAPI device.
+The program selects the V4L2 converter that is connected to the specified `/dev/videoN` node.
+It checks for a device-specific converter first.
+If the node uses the generic `v4l2convert` element, the program verifies the element's `device` property.
+The program does not verify that the selected node is a MAPI device.
+Always use the node below `C&M MAPI` in the `v4l2-ctl --list-devices` output.
 
 Inspect the output files:
 

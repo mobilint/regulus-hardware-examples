@@ -9,8 +9,8 @@ Regulus-RB의 CODAJ 하드웨어를 사용하여 JPEG 이미지를 압축하거�
 CODAJ는 JPEG/MJPEG 전용 하드웨어 코덱입니다.
 CPU 대신 CODAJ를 사용하면 JPEG 압축과 압축 해제를 하드웨어로 처리할 수 있습니다.
 
-- JPEG 인코더: NV12와 같은 압축되지 않은 픽셀 데이터를 JPEG로 압축합니다.
-- JPEG 디코더: JPEG를 NV12와 같은 압축되지 않은 픽셀 데이터로 풉니다.
+- JPEG 인코더: NV12와 같은 비압축 픽셀 데이터를 JPEG로 압축합니다.
+- JPEG 디코더: JPEG를 NV12와 같은 비압축 픽셀 데이터로 풉니다.
 
 ## 예제
 

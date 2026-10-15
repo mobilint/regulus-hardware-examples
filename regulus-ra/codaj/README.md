@@ -69,6 +69,8 @@ make TOOLCHAIN_ROOT=/opt/crosstools/mobilint/1.0.0/vX.Y.Z
 
 ## Transfer to the Board
 
+Run these commands from the repository root on the development PC.
+
 ```bash
 cd regulus-ra
 scp -r codaj root@<BOARD_IP>:/root/
@@ -110,6 +112,9 @@ file outputs/test-sample2.jpeg
 
 ## Copy the Results to the Development PC
 
+Run these commands from the repository root on the development PC.
+
 ```bash
-scp -r root@<BOARD_IP>:/root/codaj/outputs regulus-ra/codaj/
+cd regulus-ra
+scp -r root@<BOARD_IP>:/root/codaj/outputs codaj/
 ```
